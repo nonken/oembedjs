@@ -59,10 +59,7 @@ dojo.ready(function(){
 			//		Renders the retreived embed data
 
 			// If we have the html property we just embed the html
-// FIXME: different oembed providers return other data formats, need to even that out.
-			if (data.json && data.json.html){
-				this.domNode.innerHTML = data.json.html;
-			}else if (data.oembed && data.oembed.html){
+			if (data.oembed && data.oembed.html){
 				this.domNode.innerHTML = data.oembed.html;
 			}
 		}

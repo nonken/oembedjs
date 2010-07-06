@@ -22,7 +22,7 @@
 			if (url.indexOf("vimeo") > -1){
 				var data = y.rest("http://vimeo.com/api/oembed.xml").query("url", url).contentType('application/xml').get().response;
 			}else if (url.indexOf("youtube") > -1){
-				var data = y.rest("http://www.youtube.com/oembed").query("url", url).contentType('application/xml').get().response;
+				var data = y.rest("http://www.youtube.com/oembed").query("url", url).query("format", "xml").contentType('application/xml').get().response;
 			}
 			response.object = data;
 			]]>

@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <table xmlns="http://query.yahooapis.com/v1/schema/table.xsd">
-<meta>
-<author>Nikolai Onken</author>
-<description>Oembed data table</description>
-<sampleQuery><![CDATA[
-select * from {table} where
-type='vimeo' and item="http://vimeo.com/8915705"]]></sampleQuery>
-<documentationURL></documentationURL>
-</meta>
-<bindings>
-<select itemPath="" produces="XML">
-<urls>
-<url>{url}</url>
-</urls>
-<inputs>
-<key id="url" type="xs:string" required="true" paramType="variable"/>
-</inputs>
-<execute>
-<![CDATA[
-var data;
-if (url.indexOf("vimeo") > -1){
-	var data = y.rest("http://vimeo.com/api/oembed.xml").query("url", url).contentType('application/xml').get().response;
-}else if (url.indexOf("youtube") > -1){
-	var data = y.rest("http://www.youtube.com/oembed").query("url", url).contentType('application/xml').get().response;
-}
-response.object = data;
-]]>
-</execute>
-</select>
-</bindings>
+	<meta>
+		<author>Nikolai Onken</author>
+		<description>Oembed data table</description>
+		<sampleQuery><![CDATA[
+		select * from {table} where
+		type='vimeo' and item="http://vimeo.com/8915705"]]></sampleQuery>
+		<documentationURL></documentationURL>
+	</meta>
+	<bindings>
+		<select itemPath="" produces="XML">
+			<urls>
+				<url>{url}</url>
+			</urls>
+			<inputs>
+				<key id="url" type="xs:string" required="true" paramType="variable"/>
+			</inputs>
+			<execute>
+			<![CDATA[
+			var data;
+			if (url.indexOf("vimeo") > -1){
+				var data = y.rest("http://vimeo.com/api/oembed.xml").query("url", url).contentType('application/xml').get().response;
+			}else if (url.indexOf("youtube") > -1){
+				var data = y.rest("http://www.youtube.com/oembed").query("url", url).contentType('application/xml').get().response;
+			}
+			response.object = data;
+			]]>
+			</execute>
+		</select>
+	</bindings>
 </table>

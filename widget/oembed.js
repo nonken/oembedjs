@@ -21,7 +21,7 @@ dojo.ready(function(){
 
 		// yqlQuery:
 		//		YQL query which gets passed url and yqlTableUrl.
-		yqlQuery: 'http://query.yahooapis.com/v1/public/yql?q=use%20%22{{ yqlTableUrl }}%22%20as%20oembed%3B%0Aselect%20*%20from%20oembed%20where%20url%3D%22{{ url }}%22&format=json',
+		yqlQuery: 'http://query.yahooapis.com/v1/public/yql?q=use%20%22{yqlTableUrl}%22%20as%20oembed%3B%0Aselect%20*%20from%20oembed%20where%20url%3D%22{url}%22&format=json',
 
 		// templateString:
 		//		Template for component
@@ -29,24 +29,22 @@ dojo.ready(function(){
 
 		postMixInProperties: function(){
 			// summary:
-			//		Replaces values for YQL query
+			//		Replaces values for YQL query.
 
-			dojo.forEach(["yqlTableUrl", "url"], function(key){
-				if (this[key]){
-					this.yqlQuery = this.yqlQuery.replace("{{ "+key+" }}", escape(this[key]));
-				}
-			}, this);
+			this.yqlQuery = dojo.replace(this.yqlQuery, {
+				yqlTableUrl: escape(this.yqlTableUrl),
+				url: escape(this.url)
+			});
 		},
 
 		postCreate: function(){
 			// summary:
-			//		Calls YQL service and continues to render if data are available
+			//		Calls YQL service and continues to render if data are available.
 
 			dojo.io.script.get({
 				url: this.yqlQuery,
 				jsonp: "callback",
 				load: dojo.hitch(this, function(data){
-					console.log(data);
 					if (data.query.count > 0 && data.query.results){
 						this.render(data.query.results);
 					}
@@ -56,7 +54,7 @@ dojo.ready(function(){
 
 		render: function(data){
 			// summary:
-			//		Renders the retreived embed data
+			//		Renders the retreived embed data.
 
 			// If we have the html property we just embed the html
 			if (data.oembed && data.oembed.html){
